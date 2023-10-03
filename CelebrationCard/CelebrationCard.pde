@@ -1,17 +1,19 @@
 //Global Variables
-int appWidth, appHeight;
-String exitText = "X"; //All text variables as key:value pairs
-PFont exitFont; //All fonts used
+int appWidth, appHeight, sizeFont, size;
+String exitText = "X", title = "Happy Halloween";
+PFont exitFont, titleFont;
+PImage picBackground;
 color black=#000000, lightorange=#ff8818, resetDefaultInk=#FFFFFF, red=#e81123; //colour
-int  sizeFont, size; //Text Variables
-float xRectBackground, yRectBackground, widthRectBackground, heightRectBackground;
+float xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic;
 float xRectQuit, yRectQuit, widthRectQuit, heightRectQuit;
+float xTitle, yTitle, widthTitle, heightTitle;
+
 //
 void setup() {
   //Print & Println
-  println("Hello World");
-  println("Width:"+width, "\t", "Height:"+height);
-  println("Display Width: "+displayWidth, "\tDisplay Height: "+displayHeight);
+  //println("Hello World");
+  //println("Width:"+width, "\t", "Height:"+height);
+  //println("Display Width: "+displayWidth, "\tDisplay Height: "+displayHeight);
   //Character Escapes, tab, new
   //
   //fullScreen();
@@ -20,39 +22,52 @@ void setup() {
   appHeight = height;
   //
   //Population
-  xRectBackground = appWidth*0;
-  yRectBackground = appHeight*0;
-  widthRectBackground = appWidth-1;
-  heightRectBackground = appHeight-1;
+  xTitle = appWidth*1/4;
+  yTitle = appHeight*1/10;
+  widthTitle = appWidth*1/2;
+  heightTitle= appHeight*2/10;
+  //
+  xBackgroundpic = appWidth*0;
+  yBackgroundpic = appHeight*0;
+  widthBackgroundpic = appWidth-1;
+  heightBackgroundpic = appHeight-1;
+  picBackground = loadImage("../ImagesUsed/halloween_pattern_background.jpg");
+  //
   xRectQuit = appWidth-40;
   yRectQuit = appHeight*1/1000-1;
   widthRectQuit = appWidth*4/15;
   heightRectQuit = appHeight*1.5/15;
   //
   //DIVs
-  fill(lightorange);
-  rect(xRectBackground, yRectBackground, widthRectBackground, heightRectBackground);
-  fill(red);
+  rect(xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
+  image(picBackground, xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
+  //
   rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
-  //rect(); // happy halloween title/text
-  //rect(); // Copy and Paste this for all rect()s
+  rect(xTitle, yTitle, widthTitle, heightTitle);
   //rect(); //
-  //rect(); 
+  //rect(); //
+  //rect();
   exitFont = createFont("Georgia", 55);
+  titleFont = createFont("Onyx", 55);
   //[fontName] = createFont("[fontSpelling]",)
   //Verify the font exists in Processing.Java
-  // Tools / Create Font / Find Font / Do not press "OK", known bug
+  // Tools / Create Font / Find Font / Don't press "OK", known bug
 } //End setup
 //
 void draw() {
   //
-  //Drawing Text, Copied for each line of text
-  fill(resetDefaultInk); //ink
+  fill(red); //ink
   textAlign(CENTER, CENTER); //Align X&Y, see Processing.org / Reference
   //Values: [ LEFT | CENTER | RIGHT ] & [ TOP | CENTER | BOTTOM | BASELINE ]
   size = 60;
-  textFont(exitFont, size); //states which font to use
+  textFont(exitFont, size);
   text (exitText, xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
+  //
+  fill(black); //ink
+  textAlign(CENTER, CENTER);
+  size = 60;
+  textFont(titleFont, size);
+  text (title, xTitle, yTitle, widthTitle, heightTitle);
 } //End draw
 //
 void keyPressed() {
