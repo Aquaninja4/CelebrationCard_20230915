@@ -7,7 +7,7 @@ color black=#000000, lightorange=#ff8818, resetDefaultInk=#FFFFFF, red=#e81123; 
 float xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic;
 float xRectQuit, yRectQuit, widthRectQuit, heightRectQuit;
 float xTitle, yTitle, widthTitle, heightTitle;
-
+Boolean nightmode=false;
 //
 void setup() {
   //Print & Println
@@ -29,8 +29,8 @@ void setup() {
   //
   xBackgroundpic = appWidth*0;
   yBackgroundpic = appHeight*0;
-  widthBackgroundpic = appWidth-1;
-  heightBackgroundpic = appHeight-1;
+  widthBackgroundpic = appWidth;
+  heightBackgroundpic = appHeight;
   picBackground = loadImage("../ImagesUsed/halloween_pattern_background.jpg");
   //
   xRectQuit = appWidth-40;
@@ -39,7 +39,6 @@ void setup() {
   heightRectQuit = appHeight*1.5/15;
   //
   //DIVs
-  rect(xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
   image(picBackground, xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
   //
   rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
@@ -68,9 +67,24 @@ void draw() {
   size = 60;
   textFont(titleFont, size);
   text (title, xTitle, yTitle, widthTitle, heightTitle);
+  //
+  if (nightmode==true) {
+    tint(64, 64, 40);
+    println("Night Mode: "+nightmode);
+  } else {
+    noTint();
+    println("Night Mode: "+nightmode);
+  }
 } //End draw
 //
 void keyPressed() {
+  if (key == 'n' || key=='N' ) {
+    if (nightmode==true) {
+      nightmode = false;
+    } else {
+      nightmode = true;
+    }
+  }
 } //End keyPressed
 //
 void mousePressed() {
