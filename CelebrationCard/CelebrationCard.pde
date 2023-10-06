@@ -1,13 +1,13 @@
 //Global Variables
 int appWidth, appHeight, sizeFont, size;
-String exitText = "X", title = "Happy Halloween";
-PFont exitFont, titleFont;
+String title = "Happy Halloween";
+PFont titleFont;
 PImage picBackground;
-color black=#000000, lightorange=#ff8818, resetDefaultInk=#FFFFFF, red=#e81123; //colour
+color black=#000000, lightorange=#ff8818, resetDefaultInk=#FFFFFF, white=#FFFFFF, red=#e81123; //colour
 float xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic;
 float xRectQuit, yRectQuit, widthRectQuit, heightRectQuit;
 float xTitle, yTitle, widthTitle, heightTitle;
-Boolean nightmode=false;
+Boolean nightmode =false;
 //
 void setup() {
   //Print & Println
@@ -38,35 +38,33 @@ void setup() {
   widthRectQuit = appWidth*4/15;
   heightRectQuit = appHeight*1.5/15;
   //
+   int hourNightMode = hour(); //24 hour clock
+  println (hourNightMode);
+  if (hourNightMode>22) {
+    nightmode=true;
+  } else if (hourNightMode<07) {
+    nightmode=true;
+  } else {
+    nightmode=false;
+  }
+  //
   //DIVs
-  image(picBackground, xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
   //
   rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
-  rect(xTitle, yTitle, widthTitle, heightTitle);
+  //rect(xTitle, yTitle, widthTitle, heightTitle);
   //rect(); //
   //rect(); //
   //rect();
-  exitFont = createFont("Georgia", 55);
+  //
+  //(whatever)Font = createFont("Georgia", 55);
   titleFont = createFont("Onyx", 55);
   //[fontName] = createFont("[fontSpelling]",)
   //Verify the font exists in Processing.Java
   // Tools / Create Font / Find Font / Don't press "OK", known bug
+  //
 } //End setup
 //
 void draw() {
-  //
-  fill(red); //ink
-  textAlign(CENTER, CENTER); //Align X&Y, see Processing.org / Reference
-  //Values: [ LEFT | CENTER | RIGHT ] & [ TOP | CENTER | BOTTOM | BASELINE ]
-  size = 60;
-  textFont(exitFont, size);
-  text (exitText, xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
-  //
-  fill(black); //ink
-  textAlign(CENTER, CENTER);
-  size = 60;
-  textFont(titleFont, size);
-  text (title, xTitle, yTitle, widthTitle, heightTitle);
   //
   if (nightmode==true) {
     tint(64, 64, 40);
@@ -75,6 +73,16 @@ void draw() {
     noTint();
     println("Night Mode: "+nightmode);
   }
+  image(picBackground, xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
+  //
+  fill(white); //ink
+  textAlign(CENTER, CENTER);
+  size = 60;
+  textFont(titleFont, size);
+  text (title, xTitle, yTitle, widthTitle, heightTitle);
+  //
+    rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
+  //
 } //End draw
 //
 void keyPressed() {
