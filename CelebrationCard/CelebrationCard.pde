@@ -8,6 +8,11 @@ float xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic;
 float xRectQuit, yRectQuit, widthRectQuit, heightRectQuit;
 float xTitle, yTitle, widthTitle, heightTitle;
 Boolean nightmode =false;
+Boolean BrightnessControl=false;
+int BrightnessNumber = 128;
+//int RedNumber = ;
+//int GreenNumber = ;
+//int BlueNumber = ;
 //
 void setup() {
   //Print & Println
@@ -16,8 +21,8 @@ void setup() {
   //println("Display Width: "+displayWidth, "\tDisplay Height: "+displayHeight);
   //Character Escapes, tab, new
   //
-  //fullScreen();
-  size(600, 400);
+  fullScreen();
+  //size(600, 400);
   appWidth = width;
   appHeight = height;
   //
@@ -31,14 +36,14 @@ void setup() {
   yBackgroundpic = appHeight*0;
   widthBackgroundpic = appWidth;
   heightBackgroundpic = appHeight;
-  picBackground = loadImage("../ImagesUsed/halloween_pattern_background.jpg");
+  picBackground = loadImage("../ImagesUsed/halloween1.png");
   //
-  xRectQuit = appWidth-40;
-  yRectQuit = appHeight*1/1000-1;
-  widthRectQuit = appWidth*4/15;
-  heightRectQuit = appHeight*1.5/15;
+  xRectQuit = appWidth*0;
+  yRectQuit = appHeight*0/10;
+  widthRectQuit = appWidth*1/30;
+  heightRectQuit = appHeight*1/24;
   //
-   int hourNightMode = hour(); //24 hour clock
+  int hourNightMode = hour(); //24 hour clock
   println (hourNightMode);
   if (hourNightMode>22) {
     nightmode=true;
@@ -50,7 +55,8 @@ void setup() {
   //
   //DIVs
   //
-  rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
+  //rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
+  //rect(xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
   //rect(xTitle, yTitle, widthTitle, heightTitle);
   //rect(); //
   //rect(); //
@@ -65,23 +71,35 @@ void setup() {
 } //End setup
 //
 void draw() {
+  rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
+  rect(xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
+  if (BrightnessControl==true ) tint(255, BrightnessNumber);
+  {
+    if ( BrightnessNumber<1  ) {
+      BrightnessNumber=1;
+    } else if (BrightnessNumber>255) {
+      BrightnessNumber=255;
+    } else {
+      //Empty Else
+    }
+    tint (255, BrightnessNumber);
+    println("Brightness: "+BrightnessNumber);
+  }
   //
   if (nightmode==true) {
-    tint(64, 64, 40);
-    println("Night Mode: "+nightmode);
+    //tint(64, 64, 40);
+    //println("Night Mode: "+nightmode);
   } else {
-    noTint();
-    println("Night Mode: "+nightmode);
+    //noTint();
+    //println("Night Mode: "+nightmode);
   }
   image(picBackground, xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
   //
-  fill(white); //ink
+  fill(white); //ink //change white to RGB values to be able to be effected nightmode?
   textAlign(CENTER, CENTER);
   size = 60;
   textFont(titleFont, size);
   text (title, xTitle, yTitle, widthTitle, heightTitle);
-  //
-    rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
   //
 } //End draw
 //
@@ -93,12 +111,20 @@ void keyPressed() {
       nightmode = true;
     }
   }
+  //
+  if (key == CODED && keyCode == UP || keyCode == DOWN ) {
+    BrightnessControl = true;
+    if (key == CODED && keyCode == UP) BrightnessNumber++;
+    if (key == CODED && keyCode == DOWN) BrightnessNumber-- ;
+    //
+    //println(BrightnessNumber);
+  }
 } //End keyPressed
 //
 void mousePressed() {
   println("Mouse X: ", mouseX, "Mouse Y:", mouseY);
   //
-  //xRect2Quit, yRect2Quit, widthRect2Quit, heightRect2Quit
+  //xRectQuit, yRectQuit, widthRectQuit, heightRectQuit
   if ( mouseX>xRectQuit && mouseX<xRectQuit+widthRectQuit && mouseY>yRectQuit && mouseY<yRectQuit+heightRectQuit ) exit();
   //
 } //End mousePressed
