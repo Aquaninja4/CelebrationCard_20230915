@@ -8,11 +8,10 @@ float xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic;
 float xRectQuit, yRectQuit, widthRectQuit, heightRectQuit;
 float xTitle, yTitle, widthTitle, heightTitle;
 Boolean nightmode =false;
-Boolean BrightnessControl=false;
-int BrightnessNumber = 128;
-//int RedNumber = ;
-//int GreenNumber = ;
-//int BlueNumber = ;
+Boolean brightnessControl=false;
+Boolean blueControl=false;
+int brightnessNumber = 128;
+int redNumber = 64, greenNumber =redNumber, blueNumber = 40;
 //
 void setup() {
   //Print & Println
@@ -21,8 +20,8 @@ void setup() {
   //println("Display Width: "+displayWidth, "\tDisplay Height: "+displayHeight);
   //Character Escapes, tab, new
   //
-  fullScreen();
-  //size(600, 400);
+  //fullScreen();
+  size(1200, 800);
   appWidth = width;
   appHeight = height;
   //
@@ -73,25 +72,37 @@ void setup() {
 void draw() {
   rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
   rect(xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
-  if (BrightnessControl==true ) tint(255, BrightnessNumber);
+  if (brightnessControl==true ) tint(255, brightnessNumber);
   {
-    if ( BrightnessNumber<1  ) {
-      BrightnessNumber=1;
-    } else if (BrightnessNumber>255) {
-      BrightnessNumber=255;
+    if ( brightnessNumber<1  ) {
+      brightnessNumber=1;
+    } else if (brightnessNumber>255) {
+      brightnessNumber=255;
     } else {
       //Empty Else
     }
-    tint (255, BrightnessNumber);
-    println("Brightness: "+BrightnessNumber);
+    tint (255, brightnessNumber);
+    println("Brightness: "+brightnessNumber);
   }
   //
+  //
   if (nightmode==true) {
-    //tint(64, 64, 40);
-    //println("Night Mode: "+nightmode);
+    tint(redNumber, greenNumber, blueNumber);
+    println("Night Mode: "+nightmode);
   } else {
-    //noTint();
-    //println("Night Mode: "+nightmode);
+    tint (255, brightnessNumber);
+    println("Night Mode: "+nightmode);
+  }
+
+  {
+    if ( blueNumber<1  ) {
+      blueNumber=1;
+    } else if (blueNumber>40) {
+      blueNumber=40;
+    } else {
+      //Empty Else
+    }
+    println("Blue: "+blueNumber);
   }
   image(picBackground, xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
   //
@@ -113,11 +124,17 @@ void keyPressed() {
   }
   //
   if (key == CODED && keyCode == UP || keyCode == DOWN ) {
-    BrightnessControl = true;
-    if (key == CODED && keyCode == UP) BrightnessNumber++;
-    if (key == CODED && keyCode == DOWN) BrightnessNumber-- ;
+    brightnessControl = true;
+    if (key == CODED && keyCode == UP) brightnessNumber++;
+    if (key == CODED && keyCode == DOWN) brightnessNumber-- ;
     //
-    //println(BrightnessNumber);
+    //println(brightnessNumber);
+  }
+
+  if (key == CODED && keyCode == LEFT || keyCode == RIGHT ) {
+    blueControl = true;
+    if (key == CODED && keyCode == LEFT) blueNumber-- ;
+    if (key == CODED && keyCode == RIGHT) blueNumber++;
   }
 } //End keyPressed
 //
