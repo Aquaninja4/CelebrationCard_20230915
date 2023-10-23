@@ -2,9 +2,11 @@
 int appWidth, appHeight, sizeFont, size;
 String title = "Happy Halloween";
 PFont titleFont;
-PImage picBackground;
+PImage picBackground, pumpkinGhostForeground;
+//do foreground
 color black=#000000, lightorange=#ff8818, resetDefaultInk=#FFFFFF, white=#FFFFFF, red=#e81123; //colour
 float xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic;
+float pumpkinGhostX, pumpkinGhostY, pumpkinGhostWidth, pumpkinGhostHeight;
 float xRectQuit, yRectQuit, widthRectQuit, heightRectQuit;
 float xTitle, yTitle, widthTitle, heightTitle;
 Boolean nightmode =false;
@@ -35,7 +37,20 @@ void setup() {
   yBackgroundpic = appHeight*0;
   widthBackgroundpic = appWidth;
   heightBackgroundpic = appHeight;
-  picBackground = loadImage("../ImagesUsed/halloween1.png");
+  //
+  pumpkinGhostX =appWidth;
+  pumpkinGhostY =appHeight;
+  pumpkinGhostWidth=appWidth;
+  pumpkinGhostHeight=appHeight;
+  //
+  String open = "/";
+  String up = "..";
+  String imagesPath = up + open;
+  String imagesUsed = "imagesUsed/";
+  String pumpkinGhostImage = "halloween1.png";
+  String halloweenBackgroundImage = "halloween_pattern_background.jpg";
+  picBackground = loadImage(imagesPath + imagesUsed + halloweenBackgroundImage);
+  pumpkinGhostPortrait = loadImage (imagesPath + imagesUsed + pumpkinGhostImage);
   //
   xRectQuit = appWidth*0;
   yRectQuit = appHeight*0/10;
@@ -70,7 +85,6 @@ void setup() {
 } //End setup
 //
 void draw() {
-  rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
   rect(xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
   if (brightnessControl==true ) tint(255, brightnessNumber);
   {
@@ -87,7 +101,7 @@ void draw() {
   //
   //
   if (nightmode==true) {
-    tint(redNumber, greenNumber, blueNumber);
+    tint(redNumber, greenNumber, blueNumber, brightnessNumber);
     println("Night Mode: "+nightmode);
   } else {
     tint (255, brightnessNumber);
@@ -112,6 +126,7 @@ void draw() {
   textFont(titleFont, size);
   text (title, xTitle, yTitle, widthTitle, heightTitle);
   //
+  image(pumpkinGhostForeground, pumpkinGhostX, pumpkinGhostY, pumpkinGhostWidth, pumpkinGhostHeight);
 } //End draw
 //
 void keyPressed() {
