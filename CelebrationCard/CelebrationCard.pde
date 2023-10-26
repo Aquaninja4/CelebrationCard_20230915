@@ -2,11 +2,10 @@
 int appWidth, appHeight, sizeFont, size;
 String title = "Happy Halloween";
 PFont titleFont;
-PImage picBackground, pumpkinGhostForeground;
-//do foreground
+PImage picBackground, pumpkinGhostPortrait;
 color black=#000000, lightorange=#ff8818, resetDefaultInk=#FFFFFF, white=#FFFFFF, red=#e81123; //colour
 float xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic;
-float pumpkinGhostX, pumpkinGhostY, pumpkinGhostWidth, pumpkinGhostHeight;
+float pumpkinGhostXrect, pumpkinGhostYrect, pumpkinGhostWidthRect, pumpkinGhostHeightRect, pumpkinGhostWidth, pumpkinGhostHeight;
 float xRectQuit, yRectQuit, widthRectQuit, heightRectQuit;
 float xTitle, yTitle, widthTitle, heightTitle;
 Boolean nightmode =false;
@@ -22,8 +21,8 @@ void setup() {
   //println("Display Width: "+displayWidth, "\tDisplay Height: "+displayHeight);
   //Character Escapes, tab, new
   //
-  //fullScreen();
-  size(1200, 800);
+  fullScreen();
+  //size(1200, 800);
   appWidth = width;
   appHeight = height;
   //
@@ -38,11 +37,12 @@ void setup() {
   widthBackgroundpic = appWidth;
   heightBackgroundpic = appHeight;
   //
-  pumpkinGhostX =appWidth;
-  pumpkinGhostY =appHeight;
-  pumpkinGhostWidth=appWidth;
-  pumpkinGhostHeight=appHeight;
+  pumpkinGhostXrect =appWidth * 1/2; 
+  pumpkinGhostYrect =appHeight * 1/2;
+  pumpkinGhostWidthRect=appWidth * 1/7;
+  pumpkinGhostHeightRect =appHeight * 1/4;
   //
+  //concatenation of pathways
   String open = "/";
   String up = "..";
   String imagesPath = up + open;
@@ -56,6 +56,35 @@ void setup() {
   yRectQuit = appHeight*0/10;
   widthRectQuit = appWidth*1/30;
   heightRectQuit = appHeight*1/24;
+  //
+  //aspect ratio
+  pumpkinGhostWidth = 980.0;
+  pumpkinGhostHeight = 980.0;
+  float aspectRatio = 0.0;
+  //
+  //
+  if (pumpkinGhostWidth >= pumpkinGhostHeight) { //PumpkinImage if Portrait
+    println("PUMPKIN is Portrait");
+    aspectRatio = pumpkinGhostHeight / pumpkinGhostWidth;
+    pumpkinGhostWidth = pumpkinGhostWidthRect;
+    pumpkinGhostHeight = aspectRatio * pumpkinGhostWidth;
+    if (pumpkinGhostWidth > pumpkinGhostWidthRect) { //A ERROR Catch
+      println("ERROR: Aspect Calcualtion Too Big");
+      //
+      //
+      //
+    }
+  } else { //PumpkinImage if Landscape
+    println("PUMPKIN is Landscape");
+    aspectRatio = pumpkinGhostWidth / pumpkinGhostHeight;
+    pumpkinGhostHeight = pumpkinGhostHeightRect;
+    pumpkinGhostWidth = aspectRatio * pumpkinGhostHeight;
+    if (pumpkinGhostWidth > pumpkinGhostWidthRect) { // A ERROR Catch
+      println("ERROR: Aspect Calcualtion Too Big");
+    }
+  } //End IF
+  //
+  //
   //
   int hourNightMode = hour(); //24 hour clock
   println (hourNightMode);
@@ -72,9 +101,8 @@ void setup() {
   //rect(xRectQuit, yRectQuit, widthRectQuit, heightRectQuit);
   //rect(xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
   //rect(xTitle, yTitle, widthTitle, heightTitle);
+  //rect(pumpkinGhostXrect, pumpkinGhostYrect, pumpkinGhostWidthRect, pumpkinGhostHeightRect);
   //rect(); //
-  //rect(); //
-  //rect();
   //
   //(whatever)Font = createFont("Georgia", 55);
   titleFont = createFont("Onyx", 55);
@@ -120,13 +148,13 @@ void draw() {
   }
   image(picBackground, xBackgroundpic, yBackgroundpic, widthBackgroundpic, heightBackgroundpic);
   //
-  fill(white); //ink //change white to RGB values to be able to be effected nightmode?
+  fill(white); //ink //change white to RGB values to be able to be effected by nightmode?
   textAlign(CENTER, CENTER);
   size = 60;
   textFont(titleFont, size);
   text (title, xTitle, yTitle, widthTitle, heightTitle);
   //
-  image(pumpkinGhostForeground, pumpkinGhostX, pumpkinGhostY, pumpkinGhostWidth, pumpkinGhostHeight);
+  image(pumpkinGhostPortrait, pumpkinGhostXrect, pumpkinGhostYrect, pumpkinGhostWidth, pumpkinGhostHeight);
 } //End draw
 //
 void keyPressed() {
